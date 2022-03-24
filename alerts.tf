@@ -10,7 +10,7 @@ resource "google_monitoring_notification_channel" "email0" {
 
 
 locals {
-  # email0_id = "projects/abab-cdcd-023991/notificationChannels/11497409249297891355"
+
   email0_id = "${google_monitoring_notification_channel.email0.name}"
 }
 
@@ -21,7 +21,7 @@ resource "google_monitoring_alert_policy" "alert_policy0" {
     display_name = "Restart count for i-dss-ingest-dev"
     condition_threshold {
       filter = "resource.type = \"k8s_container\" AND resource.labels.cluster_name = \"us-central1-iflow-dev-zzk7-93b79581-gke\" AND metric.type = \"kubernetes.io/container/restart_count\""
-      # "resource.type = \"k8s_container\" resource.type=\"https_lb_rule\" AND resource.labels.container_name = \"airflow-worker\" metric.type = \"kubernetes.io/container/restart_count\""
+
       duration = "3600s"
       comparison = "COMPARISON_GT"
       threshold_value = 1
@@ -40,9 +40,7 @@ resource "google_monitoring_alert_policy" "alert_policy0" {
   }
 
   alert_strategy {
-
 		     auto_close = "604800s"
-
       }
   documentation {
     content = "The load balancer rule $${condition.display_name} has generated this alert for the $${metric.display_name}."
